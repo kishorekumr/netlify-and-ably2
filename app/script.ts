@@ -16,11 +16,21 @@ import * as Ably from "ably/promises";
         // Update latest message time
         latestMessageTime = new Date(msg.timestamp);
 
-        // Display the latest message time on the web page
-        document.getElementById("latest-time").innerHTML = `Latest message received at: ${latestMessageTime.toLocaleString()}`;
+        // Ensure the element exists before trying to update it
+        const latestTimeElement = document.getElementById("latest-time");
+        if (latestTimeElement) {
+            latestTimeElement.innerHTML = `Latest message received at: ${latestMessageTime.toLocaleString()}`;
+        } else {
+            console.warn("Element with ID 'latest-time' not found in the DOM.");
+        }
 
         // Also append the message to the response section
-        document.getElementById("response").innerHTML += "<br />" + JSON.stringify(msg);
+        const responseElement = document.getElementById("response");
+        if (responseElement) {
+            responseElement.innerHTML += "<br />" + JSON.stringify(msg);
+        } else {
+            console.warn("Element with ID 'response' not found in the DOM.");
+        }
     });
 
     // Example of publishing a message
